@@ -39,6 +39,9 @@ export default Vue.extend({
 
       e !== void 0 && e.qKeyEvent !== true && this.$refs.blurTarget !== void 0 && this.$refs.blurTarget.focus()
     },
+    hasSlotContent () {
+      return this.$slots && this.$slots.default && this.$slots.default.length > 0
+    },
 
     __onKeydown (e) {
       if ([13, 32].includes(e.keyCode) === true) {
@@ -110,11 +113,9 @@ export default Vue.extend({
     }
 
     if (this.icon !== void 0) {
-      const hasSlotContent = this.$slots && this.$slots.default && this.$slots.default.length > 0
-
       inner.unshift(
         h(QIcon, {
-          props: { name: this.icon, left: this.stack === false && (this.hasLabel === true || hasSlotContent) }
+          props: { name: this.icon, left: this.stack === false && (this.hasLabel === true || this.hasSlotContent()) }
         })
       )
     }
