@@ -21,9 +21,6 @@ export default Vue.extend({
   computed: {
     hasLabel () {
       return this.label !== void 0 && this.label !== null && this.label !== ''
-    },
-    hasSlotContent () {
-      return this.$slots && this.$slots.default && this.$slots.default.length > 0
     }
   },
 
@@ -113,9 +110,11 @@ export default Vue.extend({
     }
 
     if (this.icon !== void 0) {
+      const hasSlotContent = this.$slots && this.$slots.default && this.$slots.default.length > 0
+
       inner.unshift(
         h(QIcon, {
-          props: { name: this.icon, left: this.stack === false && (this.hasLabel === true || this.hasSlotContent) }
+          props: { name: this.icon, left: this.stack === false && (this.hasLabel === true || hasSlotContent) }
         })
       )
     }
